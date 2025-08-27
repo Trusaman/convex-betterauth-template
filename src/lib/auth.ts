@@ -4,6 +4,8 @@ import { requireEnv } from "@convex-dev/better-auth/utils";
 import { betterAuth } from "better-auth";
 import { betterAuthComponent } from "../../convex/auth";
 import { type GenericCtx } from "../../convex/_generated/server";
+import { admin as adminPlugin } from "better-auth/plugins";
+import { ac, admin, user, myCustomRole } from "@/lib/permissions";
 
 const siteUrl = requireEnv("SITE_URL");
 
@@ -22,5 +24,13 @@ export const createAuth = (ctx: GenericCtx) =>
         plugins: [
             // The Convex plugin is required
             convex(),
+            adminPlugin({
+                ac,
+                roles: {
+                    admin,
+                    user,
+                    myCustomRole,
+                },
+            }),
         ],
     });

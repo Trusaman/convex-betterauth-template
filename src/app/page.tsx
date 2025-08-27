@@ -28,22 +28,27 @@ export default function App() {
 
 function Dashboard() {
     const user = useQuery(api.auth.getCurrentUser);
-    const tasks = useQuery(api.tasks.get);
+    const ss = useQuery(api.getSs.getSession);
+
+    const canCreateProject = authClient.admin.checkRolePermission({
+        permissions: {
+            project: ["create"],
+        },
+        role: "admin",
+    });
+
+    const data = useQuery(api.getPerm.checkPermision);
 
     return (
         <div>
             <div>Hello {user?.name}!</div>
             <p>{user?.email}</p>
             <button onClick={() => authClient.signOut()}>Sign out</button>
+            <p>{JSON.stringify(ss)}</p>
             <hr />
-            {tasks?.map(({ _id, title, completed }) => (
-                <div key={_id}>
-                    <label>
-                        <input type="checkbox" checked={completed} disabled={completed} />
-                        {title}
-                    </label>
-                </div>
-            ))}
+            <p>{canCreateProject.toString()}</p>
+            <hr />
+            <p>Data: {JSON.stringify(data)}</p>
         </div>
     );
 }

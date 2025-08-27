@@ -3,9 +3,9 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-    // Other tables here...
-    tasks: defineTable({
-        title: v.string(),
-        completed: v.boolean(),
+    users: defineTable({
+        // Fields are optional
+        email: v.optional(v.string()),
+        name: v.optional(v.string()),
     }),
 });

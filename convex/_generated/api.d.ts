@@ -9,8 +9,9 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as getPerm from "../getPerm.js";
+import type * as getSs from "../getSs.js";
 import type * as http from "../http.js";
-import type * as tasks from "../tasks.js";
 
 import type {
   ApiFromModules,
@@ -28,8 +29,9 @@ import type {
  */
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  getPerm: typeof getPerm;
+  getSs: typeof getSs;
   http: typeof http;
-  tasks: typeof tasks;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
 

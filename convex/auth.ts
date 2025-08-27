@@ -33,6 +33,13 @@ export const {
         });
     },
 
+    onUpdateUser: async (ctx, user) => {
+        // Keep the user's email synced
+        await ctx.db.patch(user.userId as Id<"users">, {
+            email: user.email,
+        });
+    },
+
     // Delete the user when they are deleted from Better Auth
     onDeleteUser: async (ctx, userId) => {
         await ctx.db.delete(userId as Id<"users">);
