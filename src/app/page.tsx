@@ -28,10 +28,22 @@ export default function App() {
 
 function Dashboard() {
     const user = useQuery(api.auth.getCurrentUser);
+    const tasks = useQuery(api.tasks.get);
+
     return (
         <div>
             <div>Hello {user?.name}!</div>
+            <p>{user?.email}</p>
             <button onClick={() => authClient.signOut()}>Sign out</button>
+            <hr />
+            {tasks?.map(({ _id, title, completed }) => (
+                <div key={_id}>
+                    <label>
+                        <input type="checkbox" checked={completed} disabled={completed} />
+                        {title}
+                    </label>
+                </div>
+            ))}
         </div>
     );
 }
