@@ -1,3 +1,4 @@
+import "./polyfills";
 import {
     BetterAuth,
     type AuthFunctions,
@@ -27,10 +28,15 @@ export const {
 } = betterAuthComponent.createAuthFunctions<DataModel>({
     // Must create a user and return the user id
     onCreateUser: async (ctx, user) => {
-        return ctx.db.insert("users", {
+        // Example: copy the user's email to the application users table.
+        // We'll use onUpdateUser to keep it synced.
+        const userId = await ctx.db.insert("users", {
             email: user.email,
             name: user.name,
         });
+
+        // This function must return the user id.
+        return userId;
     },
 
     // Delete the user when they are deleted from Better Auth
